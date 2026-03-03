@@ -1,0 +1,239 @@
+Question 1 (Simple): What Python dependencies does this project use?
+Answer:
+The project uses the following Python dependencies, as specified in `pyproject.toml` (lines 6-63):
+
+* `aiofiles` (>= 24.1.0)
+* `fastapi` (>= 0.115.12)
+* `itsdangerous` (>= 2.2.0)
+* `jinja2` (>= 3.1.6)
+* `mcp` (>= 1.9.3)
+* `pydantic` (>= 2.11.3)
+* `pydantic-settings` (>= 2.0.0)
+* `httpx` (>= 0.27.0)
+* `python-dotenv` (>= 1.1.0)
+* `python-multipart` (>= 0.0.20)
+* `uvicorn` (>= 0.34.2)
+* `faiss-cpu` (>= 1.7.4)
+* `sentence-transformers` (>= 3.0.0)
+* `websockets` (>= 15.0.1)
+* `scikit-learn` (>= 1.3.0)
+* `torch` (>= 1.6.0)
+* `huggingface-hub` (>= 0.31.1)
+* `bandit` (>= 1.8.3)
+* `langchain-mcp-adapters` (>= 0.0.11)
+* `langgraph` (>= 0.4.3)
+* `langchain-aws` (>= 0.2.23)
+* `pytz` (>= 2025.2)
+* `strands-agents` (>= 0.1.6)
+* `strands-agents-tools` (>= 0.1.4)
+* `pyjwt` (>= 2.10.1)
+* `typing-extensions` (>= 4.8.0)
+* `httpcore` (>= 1.0.9)
+* `pyyaml` (>= 6.0.0)
+* `langchain-anthropic` (>= 0.3.17)
+* `matplotlib` (>= 3.10.5)
+* `psutil` (>= 6.1.0)
+* `email-validator` (>= 2.2.0)
+* `aiohttp` (>= 3.8.0)
+* `rich` (>= 13.0.0)
+* `requests` (>= 2.31.0)
+* `cisco-ai-a2a-scanner` (from GitHub repository)
+* `cisco-ai-skill-scanner` (>= 1.0.0)
+* `cisco-ai-mcp-scanner` (>= 3.0.1)
+* `awscli` (>= 1.36.0)
+* `boto3` (>= 1.35.0)
+* `motor` (>= 3.3.0)
+* `pymongo` (>= 4.6.0)
+* `dnspython` (>= 2.4.0)
+* `litellm` (>= 1.50.0)
+* `cryptography` (>= 46.0.3)
+* `prometheus-client` (>= 0.20.0)
+
+Additionally, the project has optional dependencies for development, documentation, and testing, as specified in `pyproject.toml` (lines 65-123). 
+
+Note that `package.json` (lines 1-8) contains dependencies for a JavaScript project, likely used for frontend development, but it is not relevant to the Python dependencies.
+
+------------------------------------------------------------
+Question 2 (Simple): What is the main entry point file for the registry service?
+Answer:
+The main entry point file for the registry service is `registry/main.py`. 
+
+This can be confirmed by the presence of the shebang line `#!/usr/bin/env python3` (line 1) and the import of various routers and services, which suggests that this file serves as the application coordinator. 
+
+Additionally, the file contains a large number of imports from other modules within the `registry` package, indicating that it is responsible for initializing and configuring the application. 
+
+The `find` command output also supports this, as it lists `./registry/main.py` as a potential main entry point. 
+
+The `grep` commands for `__main__` and `if __name__` do not provide a clear indication of the main entry point, as they return a large number of files, but the `registry/main.py` file is not explicitly listed. 
+
+However, based on the contents of `registry/main.py` and the directory structure, it is clear that `registry/main.py` is the main entry point for the registry service.
+
+------------------------------------------------------------
+Question 3 (Simple): What programming languages and file types are used in this repository? (e.g., Python, TypeScript, YAML, JSON, Dockerfile, etc.)
+Answer:
+The repository uses the following programming languages and file types:
+
+* Python (.py) - 339 files (e.g., `auth_server/server.py`, `cli/mcp_client.py`)
+* TypeScript (.ts, .tsx) - 102 files (e.g., `frontend/src/index.tsx`, `frontend/e2e/virtual-server-e2e-full.spec.ts`)
+* JSON (.json) - 70 files (e.g., `frontend/package.json`, `api/openapi.json`)
+* YAML (.yaml, .yml) - 72 files (e.g., `auth_server/scopes.yml`, `config/grafana/datasources/prometheus.yml`)
+* Dockerfile - 6 files (e.g., `docker/Dockerfile.auth`, `terraform/aws-ecs/grafana/Dockerfile`)
+* Markdown (.md) - numerous files (e.g., `README.md`, `CODE_OF_CONDUCT.md`)
+* Shell scripts (.sh) - numerous files (e.g., `cli/agent_mgmt.sh`, `docker/registry-entrypoint.sh`)
+* Lua - 1 file (in `docker/lua` directory, but no specific file mentioned)
+* HTML - 1 file (e.g., `docker/502.html`)
+
+Note that this list may not be exhaustive, as the provided context is truncated. However, it gives a general idea of the programming languages and file types used in the repository.
+
+------------------------------------------------------------
+Question 4 (Difficult): How does the authentication flow work, from token validation to user authorization?
+Answer:
+The authentication flow in the provided codebase involves token validation and user authorization. Here's a step-by-step breakdown:
+
+### Token Validation
+
+1. **Token Receipt**: The authentication server receives a token, which can be a JWT (JSON Web Token) or a static API key.
+2. **Token Validation**: The server validates the token using one of the following methods:
+	* **`validate_jwt_token`** (line 776 in `auth_server/server.py`): Validates a JWT token against Amazon Cognito.
+	* **`validate_with_boto3`** (line 875 in `auth_server/server.py`): Validates a token using the boto3 GetUser API.
+	* **`validate_self_signed_token`** (line 934 in `auth_server/server.py`): Validates a self-signed JWT token generated by the auth server.
+3. **Token Claims Extraction**: If the token is valid, the server extracts the token claims, which contain information about the user and their permissions.
+
+### User Authorization
+
+1. **User Scopes**: The server checks the user's scopes, which are extracted from the token claims (line 471 in `auth_server/server.py`).
+2. **Rate Limiting**: The server checks if the user has exceeded the token generation rate limit (line 609 in `auth_server/server.py`).
+3. **Authorization**: If the user is authorized, the server grants access to the requested resources.
+
+### Static Token Auth
+
+1. **Static Token Configuration**: The server checks if static token auth is enabled and if the `REGISTRY_API_TOKEN` is set (line 96 in `auth_server/server.py`).
+2. **Static Token Validation**: If static token auth is enabled, the server validates the static API key against the `REGISTRY_API_TOKEN` (line 80 in `auth_server/server.py`).
+
+The authentication flow is implemented in the `auth_server/server.py` file, which provides a simplified authentication server that validates JWT tokens against Amazon Cognito. The server also supports static token auth and rate limiting.
+
+------------------------------------------------------------
+Question 5 (Difficult): What are all the API endpoints available in the registry service and what scopes do they require?
+Answer:
+The provided context is insufficient to determine all the API endpoints available in the registry service and the scopes they require. 
+
+However, based on the provided `grep` output, we can see some API endpoints and their corresponding files and line numbers:
+
+- `registry/api/federation_routes.py`: 
+  - `GET /federation/config` (line 34)
+  - `POST` (line 77)
+  - `PUT` (line 184)
+  - `DELETE` (line 265)
+  - `GET` (line 304)
+  - `POST` (line 328)
+  - `DELETE` (line 382)
+  - `POST` (line 464)
+  - `DELETE` (line 518)
+  - `POST /federation/sync` (line 569)
+
+- `registry/api/federation_export_routes.py`: 
+  - `GET /health` (line 350)
+  - `GET` (line 368)
+  - `GET` (line 481)
+  - `GET` (line 590)
+
+- `registry/api/virtual_server_routes.py`: 
+  - `GET` (line 129)
+  - `GET` (line 164)
+  - `POST` (line 203)
+  - `GET` (line 250)
+  - `GET` (line 272)
+  - `POST` (line 295)
+  - `PUT` (line 351)
+  - `DELETE` (line 412)
+  - `POST` (line 453)
+  - `GET` (line 511)
+
+- `registry/api/search_routes.py`: 
+  - `POST` (line 353)
+
+- `registry/api/config_routes.py`: 
+  - `GET` (line 356)
+  - `GET` (line 442)
+  - `GET` (line 664)
+
+- `registry/api/management_routes.py`: 
+  - `GET /iam/users` (line 126)
+  - `POST /iam/users/m2m` (line 159)
+  - `POST /iam/users/human` (line 181)
+  - `DELETE /iam/users/{username}` (line 214)
+  - `PATCH /iam/users/{username}/groups` (line 232)
+  - `GET /iam/groups` (line 263)
+  - `POST /iam/groups` (line 292)
+  - `DELETE /iam/groups/{group_name}` (line 372)
+  - `GET /iam/groups/{group_name}` (line 418)
+  - `PATCH /iam/groups/{group_name}` (line 462)
+
+- `registry/api/system_routes.py`: 
+  - `GET /api/version` (line 251)
+  - `GET /api/stats` (line 261)
+
+- `registry/api/registry_routes.py`: 
+  - `GET` (line 40)
+  - `GET` (line 107)
+  - `GET` (line 194)
+
+- `registry/api/wellknown_routes.py`: 
+  - `GET /mcp-servers` (line 16)
+
+- `registry/api/internal_routes.py`: 
+  - `POST` (line 43)
+  - `GET` (line 75)
+  - `GET` (line 96)
+  - `PUT` (line 132)
+
+To find the scopes required for each endpoint, you can search for the `@router` decorator and the `scope` or `require` keywords in the `registry` directory. 
+
+You can use the following command to find the scopes:
+```bash
+grep -r -n 'scope\|require' --include='*.py' registry/
+```
+This will give you the line numbers and files where the `scope` or `require` keywords are used. You can then manually check each file to determine the scopes required for each endpoint. 
+
+Alternatively, you can use a more complex `grep` command to search for the `@router` decorator and the `scope` or `require` keywords in the same line:
+```bash
+grep -r -n -E '@router.*\(scope\|require\)' --include='*.py' registry/
+```
+This will give you the line numbers and files where the `@router` decorator and the `scope` or `require` keywords are used in the same line.
+
+------------------------------------------------------------
+Question 6 (Very Hard): How would you add support for a new OAuth provider (e.g., Okta) to the authentication system? What files would need to be modified and what interfaces must be implemented?
+Answer:
+To add support for a new OAuth provider (e.g., Okta) to the authentication system, you would need to modify the following files:
+
+1. `oauth2_providers.yml`: Add a new configuration block for the Okta provider, including its client ID, client secret, authorization URL, and token URL.
+2. `auth_server/server.py`: Update the `load_oauth2_config` function to load the new provider's configuration from the `oauth2_providers.yml` file.
+3. `providers/factory.py`: Implement a new class for the Okta provider that inherits from a base provider class (not shown in the provided context). This class should implement the necessary methods for authentication, such as `validate_token`, `get_m2m_token`, and `get_provider_info`.
+
+The interfaces that must be implemented are:
+
+* `validate_token(access_token)`: Validate an access token issued by the Okta provider.
+* `get_m2m_token(scope=None)`: Obtain a machine-to-machine token for the Okta provider.
+* `get_provider_info()`: Return information about the Okta provider, such as its type and configuration.
+
+Example code for the Okta provider class:
+```python
+# providers/okta.py
+from providers.base import BaseProvider
+
+class OktaProvider(BaseProvider):
+    def validate_token(self, access_token):
+        # Implement token validation logic for Okta
+        pass
+
+    def get_m2m_token(self, scope=None):
+        # Implement M2M token retrieval logic for Okta
+        pass
+
+    def get_provider_info(self):
+        # Return information about the Okta provider
+        return {"provider_type": "okta", "config": {"client_id": "your_client_id", "client_secret": "your_client_secret"}}
+```
+Note that the exact implementation details will depend on the specific requirements of the Okta provider and the authentication system.
+
+------------------------------------------------------------

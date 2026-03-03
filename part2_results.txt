@@ -1,0 +1,49 @@
+Question 1 (expected: CSV Only): What was the total revenue for Electronics category in December 2024?
+Answer:
+The total revenue for the Electronics category in December 2024 was $142,864.31.
+
+------------------------------------------------------------
+Question 2 (expected: CSV Only): Which region had the highest sales volume?
+Answer:
+The Central region had the highest sales volume, with a total of 6,779 units sold.
+
+------------------------------------------------------------
+Question 3 (expected: Text Only): What are the key features of the Wireless Bluetooth Headphones?
+Answer:
+The key features of the Wireless Bluetooth Headphones (ELEC001) include:
+
+1. Active Noise Cancellation (ANC) with transparency mode
+2. Bluetooth 5.2 for stable connectivity up to 30ft range
+3. 40-hour battery life with quick charge (10 min = 3 hours playback)
+4. Premium memory foam ear cushions for all-day comfort
+5. Foldable design with carrying case included
+6. Built-in microphone for calls and voice assistant
+
+These features are highlighted in the product description and are also praised by customers in the reviews, with an average rating of 4.4/5 from 2,847 reviews.
+
+------------------------------------------------------------
+Question 4 (expected: Text Only): What do customers say about the Air Fryer's ease of cleaning?
+Answer:
+According to the customer reviews of the Air Fryer 5.5L (HOME003), customers find it "easy to clean" (Review 1 - Patricia W., Review 3 - Lisa G.). The product description also mentions that the removable basket and pan are "dishwasher-safe", which suggests that cleaning is convenient. Overall, customers are satisfied with the ease of cleaning, with no major complaints mentioned in the reviews.
+
+------------------------------------------------------------
+Question 5 (expected: Both): Which product has the best customer reviews and how well is it selling?
+Answer:
+The product with the best customer reviews is the Ergonomic Office Chair (OFFC001) with an average rating of 4.6/5 from 5 reviews, and the Python Programming Guide (BOOK001) also has a high average rating of 4.6/5 from 5 reviews. However, the OFFC001 has a higher number of reviews is not available, but based on the provided data, BOOK001 has 5 reviews with an average rating of 4.6/5 and OFFC001 also has 5 reviews with the same average rating.
+
+In terms of sales, the OFFC001 has sold 466 units with a revenue of $114,161.26, while the BOOK001 has sold 984 units with a revenue of $42,453.40.
+
+Both products have excellent customer reviews and are selling well, but the BOOK001 has higher sales in terms of units sold, while the OFFC001 has higher revenue.
+
+------------------------------------------------------------
+Question 6 (expected: Both): I want a product for fitness that is highly rated and sells well in the West region. What do you recommend?
+Answer:
+Based on the sales data and product pages, I recommend the Air Fryer 5.5L (HOME003) for a fitness-related product that sells well in the West region and has high ratings. 
+
+In the West region, the Air Fryer 5.5L (HOME003) has sold 212 units with a revenue of $27,557.88. Although it's not exclusively a fitness product, it promotes healthy cooking with up to 85% less oil than traditional frying methods, which can contribute to a healthier lifestyle and fitness goals.
+
+The product has an average rating of 4.6/5 from 5,234 reviews, indicating high customer satisfaction. Customers praise its ability to cook a variety of foods crisply and healthily, making it a great addition to a fitness-oriented lifestyle. 
+
+Please note that the context provided does not include explicit fitness products, so this recommendation is based on the health and wellness aspect of the Air Fryer 5.5L (HOME003). If you're looking for a more traditional fitness product, the provided context may not be sufficient.
+
+------------------------------------------------------------
